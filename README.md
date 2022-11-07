@@ -1,5 +1,15 @@
 # Manatee
 
+# How to run the app
+
+There are two ways of runngin the app
+
+1. Download the image from, and run the container
+
+2. Clone the repo from GitHub
+    - run `npm i`
+    - run `npm start`
+
 
 Create a simple web based React application that takes a stock ticker symbol as input, and
 displays the stock’s latest quote price. The app should query your own NodeJS server using
