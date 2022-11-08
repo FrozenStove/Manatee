@@ -1,15 +1,15 @@
 import fetch from 'node-fetch'
 import express from 'express'
+import finController from './controllers/finnhub';
 
 // port can be specified in the command line
 const PORT = process.env.port || 3000;
-const apiKey = 'bv4mnbf48v6qpate9n30';
 // fetch()
 
 const app = express();
 
-app.use('/api',
-
+app.use('/api/v1',
+finController.getData,
 (req, res) => {
     return res.sendStatus(418)
 })

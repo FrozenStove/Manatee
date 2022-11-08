@@ -28,8 +28,7 @@ bv4mnbf48v6qpate9n30
 
 Requirements:
 
-● Provide an input field that accepts a stock ticker symbol (e.g AAPL, TSLA,
-AMZN)
+● Provide an input field that accepts a stock ticker symbol (e.g AAPL, TSLA, AMZN)
 ● Provide a button or alternative way to submit the input.
 ● When submitted, the web app will query your own NodeJS REST endpoint for the
 provided stock’s price data.
