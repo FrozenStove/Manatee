@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node server/server.ts",
     "build": "webpack --watch",
     "server": "nodemon server/server.ts",
+    "dev": "concurrently \" webpack --watch \" \" nodemon server/server.ts\"",
     "test": "jest"
-  },
+    },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FrozenStove/Manatee.git"
@@ -33,6 +35,7 @@
     "@types/jest": "^29.2.2",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "concurrently": "^7.5.0",
     "css-loader": "^6.7.1",
     "docker": "^0.2.14",
     "html-webpack-plugin": "^5.5.0",

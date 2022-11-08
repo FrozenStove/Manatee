@@ -39,7 +39,6 @@ finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
 }
 
 finController.getSymbol = (req: Request, res: Response, next: NextFunction) => {
-
     const symbol = req.body.symbol || 'Default Symbol'
     finnhubClient.symbolSearch(symbol, (error: any, data: any, response: any) => {
         // the function below sorts through the incoming data and returns the object which matches the ticker symbol
