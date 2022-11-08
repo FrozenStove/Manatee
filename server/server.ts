@@ -13,7 +13,8 @@ app.use(express.json())
 
 
 app.use('/api/v1',
-finController.getData,
+finController.getPrice,
+finController.getSymbol,
 (req, res) => {
     return res.sendStatus(418)
 })

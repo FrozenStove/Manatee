@@ -18,12 +18,12 @@ const App = () => {
         const fetchOptions = {
             method: "POST",
             header: "application-type/json",
-            body: target.ticker.value,
+            body: JSON.stringify({symbol: target.ticker.value}),
         }
 
         fetch('/api/v1', fetchOptions)
             .then((data) => data.json())
-            .then()
+            // .then()
             .catch((error) => {
                 console.log('Error Encountered', error)
                 throw new Error(error);

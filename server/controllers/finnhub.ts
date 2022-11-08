@@ -8,41 +8,46 @@ const finnhubClient = new finnhub.DefaultApi()
 
 // {getData: ()=>{}}
 
-const finControllor: any = {};
+const finController: any = {};
 
 type SymbolResult = {
     description: string,
     displaySymbol: string,
     symbol: string,
-    type: string,
+    type: string
 }
 
-finControllor.getData = async (req: Request, res: Response, next: NextFunction) => {
+finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
+    console.log('body', req.body)
     const symbol = req.body.symbol || 'string'
-    // console.log(symbol)
+    console.log(symbol)
 
     finnhubClient.quote(symbol, (error: any, data: any, response: any) => {
-        if (data.d === null){
+        console.log('data', data)
+        if (data.d === null) {
             next({
                 log: 'No results from entered Symbol',
                 status: 204,
                 message: { err: 'Invalid Symbol' },
-            })        
+            })
         } else {
-            res.locals.price = data.c
+            res.locals.price = data.c;
+            res.locals.percent = data.dp;
         }
+        next()
     });
+}
+finController.getSymbol = (req: Request, res: Response, next: NextFunction) => {
 
+    const symbol = req.body.symbol || 'string'
     finnhubClient.symbolSearch(symbol, (error: any, data: any, response: any) => {
         // the function below sorts through the incoming data and returns the object which matches the ticker symbol
         res.locals.name = data.result.find((element: SymbolResult, index: number) => {
             return element.symbol === symbol;
         })
+        return next()
     });
 
-    // console.log('a',a)
-
-    // return next()
 }
 
 /*
@@ -71,4 +76,4 @@ Previous close price
 */
 
 
-export default finControllor
+export default finController
