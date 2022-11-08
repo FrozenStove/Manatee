@@ -8,8 +8,11 @@ const apiKey = 'bv4mnbf48v6qpate9n30';
 
 const app = express();
 
+app.use('/api',
 
-// app.use('api')
+(req, res) => {
+    return res.sendStatus(418)
+})
 
 app.use(express.static('build'))
 
