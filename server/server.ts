@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import express, { NextFunction, Request, Response ,Errback} from 'express'
 import finController from './controllers/finnhub';
 

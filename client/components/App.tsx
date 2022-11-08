@@ -33,7 +33,7 @@ const App = () => {
             return data.json()
             })
             .then((data) => {
-                console.log('success', data)
+                // console.log('success', data)
                 setStockData({
                     time: new Date().toLocaleTimeString(),
                     price: data.price,
