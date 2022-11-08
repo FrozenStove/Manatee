@@ -8,7 +8,15 @@ There are two ways of runngin the app
 
 2. Clone the repo from GitHub
     - run `npm i`
-    - run `npm start`
+
+
+    For Production:
+    - run `npm run build`
+    - run `npm run start`
+
+
+    For Development:
+    - run `npm run dev`
 
 
 Create a simple web based React application that takes a stock ticker symbol as input, and
@@ -28,7 +36,7 @@ retrieving stock price data
 ○ This API requires an authentication token for an existing account. We have
 created an account that you can use. Here is the token linked to said account
 that you will need to use when performing REST requests:
-bv4mnbf48v6qpate9n30
+<API KEY>
 
 Requirements:
 

@@ -1,11 +1,11 @@
 {
   "name": "manatee",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple web app to query an internal and external API",
   "main": "index.js",
   "scripts": {
     "start": "ts-node server/server.ts",
-    "build": "webpack --watch",
+    "build": "webpack --mode=production",
     "server": "nodemon server/server.ts",
     "dev": "concurrently \" webpack --watch \" \" nodemon server/server.ts\"",
     "test": "jest"
