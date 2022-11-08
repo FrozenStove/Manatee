@@ -72,6 +72,7 @@ finController.getSymbol = (req: Request, res: Response, next: NextFunction) => {
         return next()
     });
 
+    // The promises below are to facilitate testing   
     var promiseResolve: any, promiseReject;
     var promise = new Promise(function (resolve, reject) {
         promiseResolve = resolve;

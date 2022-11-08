@@ -10,14 +10,17 @@ type StockData = {
 }
 
 const App = () => {
+    // initialize state for the loading circle and the stock data
     const [stockData, setStockData] = useState<StockData>({success: true} as StockData);
     const [loading, setLoading] = useState<boolean>(false)
 
+    // function to handle the onSubmit of the form
     const submitForm = (event: React.FormEvent) => {
         const target = event.target as typeof event.target & {
             ticker: { value: string };
         };
 
+        // create object to help coordinate fetching options
         const fetchOptions = {
             method: "POST",
             headers: {
@@ -26,9 +29,10 @@ const App = () => {
             body: JSON.stringify({symbol: target.ticker.value}),
         }
 
+        // access data from our custome API
         fetch('/api/v1', fetchOptions)
             .then((data) => {
-            // console.log(data)
+            // remove the loading circle here to ensure it is removed before any errors are caught
             setLoading(false)
             return data.json()
             })
@@ -52,7 +56,6 @@ const App = () => {
                     symbol: target.ticker.value,
                     success: false
                 })  
-                // console.log('Error Encountered', error)
                 throw new Error(error);
             })
     }
