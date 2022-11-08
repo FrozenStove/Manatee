@@ -1,36 +1,43 @@
 import React, { useState } from "react";
 
-
-interface FormElements extends HTMLFormControlsCollection {
-    // target:,
-    target: HTMLInputElement
-}
-
 type StockData = {
-    time: Date,
+    time: string,
     price: number,
-    name: string
+    name: string,
+    symbol: string
 }
 
 const App = () => {
     const [stockData, setStockData] = useState<StockData>({} as StockData);
 
     const submitForm = (event: React.FormEvent) => {
+        const target = event.target as typeof event.target & {
+            ticker: { value: string };
+        };
 
-        console.log('form submitted')
-        // event.preventDefault();
-        // if(event.target?['ticker']?.value){
-        // }
+        const fetchOptions = {
+            method: "POST",
+            header: "application-type/json",
+            body: target.ticker.value,
+        }
 
-        const a = event.target['ticker'].value
+        fetch('/api', fetchOptions)
+            .then((data) => data.json())
+            .then()
+            .catch((error) => {
+                console.log('Error Encountered', error)
+                throw new Error(error);
+            })
 
+        const a = target.ticker.value
         console.log(a)
     }
 
     const tempData: StockData = {
-        time: new Date(),
+        time: new Date().toDateString(),
         price: 123,
-        name: 'Hello'
+        name: 'Hello',
+        symbol: 'aapl'
     }
 
     return (
@@ -41,10 +48,15 @@ const App = () => {
                 submitForm(event)
                 setStockData(tempData)
             }}>
-                <input type='text' id="ticker" placeholder={'Enter Symbol Here'}></input>
+                <input type='text' name="ticker" placeholder={'Enter Symbol Here'}></input>
                 <input type='submit' id="form-button" value={'Submit'}></input>
             </form>
-            {/* {price} */}
+            <div id="results">
+                <p>Name: {stockData.name}</p>
+                <p>Symbol: {stockData.symbol}</p>
+                <p>Price: {stockData.price}</p>
+                <p>Time: {stockData.time}</p>
+            </div>
         </div>
     )
 }
