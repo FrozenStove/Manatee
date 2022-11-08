@@ -21,7 +21,7 @@ const App = () => {
             body: target.ticker.value,
         }
 
-        fetch('/api', fetchOptions)
+        fetch('/api/v1', fetchOptions)
             .then((data) => data.json())
             .then()
             .catch((error) => {
