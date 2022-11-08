@@ -18,3 +18,25 @@ form {
     display: flex;
     justify-content: space-between;
 }
+
+.loader {
+    border: 6px solid grey;
+    /* Light grey */
+    border-top: 6px solid black;
+    /*#3498db; /* Blue */
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin: 0px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+  
+    100% {
+      transform: rotate(360deg);
+    }
+  }

@@ -19,7 +19,7 @@ type SymbolResult = {
 
 finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
     console.log('body', req.body)
-    const symbol = req.body.symbol || 'string'
+    const symbol = req.body.symbol || 'Default Symbol'
     console.log(symbol)
 
     finnhubClient.quote(symbol, (error: any, data: any, response: any) => {
@@ -37,14 +37,15 @@ finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
         next()
     });
 }
+
 finController.getSymbol = (req: Request, res: Response, next: NextFunction) => {
 
-    const symbol = req.body.symbol || 'string'
+    const symbol = req.body.symbol || 'Default Symbol'
     finnhubClient.symbolSearch(symbol, (error: any, data: any, response: any) => {
         // the function below sorts through the incoming data and returns the object which matches the ticker symbol
         res.locals.name = data.result.find((element: SymbolResult, index: number) => {
             return element.symbol === symbol;
-        })
+        }).description;
         return next()
     });
 

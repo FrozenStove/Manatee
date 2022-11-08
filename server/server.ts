@@ -16,7 +16,7 @@ app.use('/api/v1',
 finController.getPrice,
 finController.getSymbol,
 (req, res) => {
-    return res.sendStatus(418)
+    return res.status(200).json(res.locals)
 })
 
 app.use(express.static('build'))
