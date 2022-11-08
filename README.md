@@ -4,7 +4,7 @@
 
 There are two ways of runngin the app
 
-1. Download the image from, and run the container
+1. Download the image from [dockerhub](https://hub.docker.com/repository/docker/frozenstove/manatee), and run the container
 
 2. Clone the repo from GitHub
     - run `npm i`
