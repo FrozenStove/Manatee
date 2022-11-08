@@ -9,5 +9,7 @@ module.exports = {
     // Matches parent folder `__tests__` and filename
     // should contain `test` or `spec`.
     testRegex: "(/__tests__/.*\\.(test|spec))\\.tsx?$",
-  
+
+    testTimeout: 15000,
+
   };

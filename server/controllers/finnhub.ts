@@ -1,15 +1,20 @@
 import express, { NextFunction, Request, Response } from 'express'
 const finnhub = require('finnhub');
-// import finnhub from 'finnhub'
 
+// initialize the finnhub API
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = "bv4mnbf48v6qpate9n30"
 const finnhubClient = new finnhub.DefaultApi()
 
-// {getData: ()=>{}}
+// setup typing for the middleware controller
+type FinController = {
+    getPrice: (req: Request, res: Response, next: NextFunction) => void
+    getSymbol: (req: Request, res: Response, next: NextFunction) => void
+}
 
-const finController: any = {};
+const finController: FinController = {} as FinController;
 
+// setup typing to iterate through the data provided in the finnhub API
 type SymbolResult = {
     description: string,
     displaySymbol: string,
@@ -17,12 +22,12 @@ type SymbolResult = {
     type: string
 }
 
-finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
+finController.getPrice = async (req: Request, res: Response, next: NextFunction) => {
+    // console log incoming data
     console.log('body', req.body)
     const symbol = req.body.symbol || 'Default Symbol'
-    console.log(symbol)
-
-    finnhubClient.quote(symbol, (error: any, data: any, response: any) => {
+    // console.log( finnhubClient.quote.toString())
+    const a = finnhubClient.quote(symbol, (error: any, data: any, response: any) => {
         console.log('data', data)
         if (data.d === null) {
             next({
@@ -30,50 +35,49 @@ finController.getPrice = (req: Request, res: Response, next: NextFunction) => {
                 status: 204,
                 message: { err: 'Invalid Symbol' },
             })
+            promiseResolve();
         } else {
             res.locals.price = data.c;
             res.locals.percent = data.dp;
+            promiseResolve();
+            return next()
         }
-        next()
+    })
+
+    // The promises below are to facilitate testing
+    var promiseResolve: any, promiseReject;
+    var promise = new Promise(function (resolve, reject) {
+        promiseResolve = resolve;
+        promiseReject = reject;
     });
+    return promise
+
 }
 
 finController.getSymbol = (req: Request, res: Response, next: NextFunction) => {
     const symbol = req.body.symbol || 'Default Symbol'
+
+    // invoke the finnhub API to get the full name of a symbol
     finnhubClient.symbolSearch(symbol, (error: any, data: any, response: any) => {
         // the function below sorts through the incoming data and returns the object which matches the ticker symbol
-        res.locals.name = data.result.find((element: SymbolResult, index: number) => {
+        const results = data.result.find((element: SymbolResult, index: number) => {
             return element.symbol === symbol;
-        }).description;
+        })
+        if (results) {
+            res.locals.name = results.description
+        } else {
+            res.locals.name = 'No Results'
+        }
+        promiseResolve()
         return next()
     });
 
+    var promiseResolve: any, promiseReject;
+    var promise = new Promise(function (resolve, reject) {
+        promiseResolve = resolve;
+        promiseReject = reject;
+    });
+    return promise
 }
-
-/*
-c
-Current price
-
-d
-Change
-
-dp
-Percent change
-
-h
-High price of the day
-
-l
-Low price of the day
-
-o
-Open price of the day
-
-pc
-Previous close price
-
-
-*/
-
 
 export default finController
