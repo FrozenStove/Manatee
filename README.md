@@ -1,6 +1,6 @@
 # Manatee
 
-This is a simple web app written in TypeScript as an excercise.
+This is a simple web app written in TypeScript as an exercise.
 
 # How to run the app
 
