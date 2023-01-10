@@ -26,7 +26,7 @@ const App = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({symbol: target.ticker.value}),
+            body: JSON.stringify({symbol: target.ticker.value.toUpperCase()}),
         }
 
         // access data from our custome API
@@ -63,7 +63,7 @@ const App = () => {
     return (
         <div>
             <h1>Stocks and Times</h1>
-            <h3>Enter a symbol in all caps</h3>
+            <h3>Enter a stock symbol below</h3>
             <form onSubmit={(event) => {
                 event.preventDefault()
                 submitForm(event)

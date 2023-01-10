@@ -1,3 +1,2 @@
-// start of front end tests
-// additional tests to be made
-// more tests
+import '@testing-library/jest-dom'
+import {render, fireEvent, screen} from '@testing-library/react'
